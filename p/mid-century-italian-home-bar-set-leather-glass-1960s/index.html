@@ -28,7 +28,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css?v=20260612a">
+    <link rel="stylesheet" href="/css/style.css?v=20260319f">
 
     <!-- GA4: niet geconfigureerd -->
 
@@ -64,7 +64,7 @@
     <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a>
         <span>/</span>
-        <a href="/various/">Various</a>
+        <a href="/furniture/">Furniture</a>
         <span>/</span>
         <span>Mid-Century Italian Home Bar Set, 1960s</span>
     </nav>
@@ -93,7 +93,7 @@
         <div class="product-info">
             <h1>Mid-Century Italian Home Bar Set, 1960s</h1>
 
-            <p class="product-price">Sold</p>
+            <p class="product-price">Sold </p>
             <p class="product-ref">Ref: A-068</p>
 
             <div class="product-specs">
@@ -103,6 +103,9 @@
                     <dt>Materials</dt><dd>veneer, leather, chrome, glass</dd>
                     <dt>Color</dt><dd>Brown / chrome</dd>
                     <dt>Condition</dt><dd>Good — vintage wear consistent with age</dd>
+                    <dt>Height</dt><dd>95 cm</dd>
+                    <dt>Width</dt><dd>165 cm</dd>
+                    <dt>Depth</dt><dd>38 cm</dd>
                 </dl>
             </div>
 
@@ -118,14 +121,7 @@
 <p>At 165 centimetres wide and 95 centimetres tall, this bar set commands a wall or stands as a room divider, serving as an elegant cocktail station or a display piece that evokes the golden age of Italian entertaining. Functional, beautiful, and steeped in retro glamour.</p>
             </div>
 
-            <div class="product-dimensions">
-                <h3>Dimensions</h3>
-                <dl>
-                    <dt>Height</dt><dd>95 cm</dd>
-                    <dt>Width</dt><dd>165 cm</dd>
-                    <dt>Depth</dt><dd>38 cm</dd>
-                </dl>
-            </div>
+            
         </div>
 
     </div>
@@ -137,6 +133,7 @@
     <button class="lightbox-close" aria-label="Sluiten">&times;</button>
     <button class="lightbox-prev" aria-label="Vorige">&#10094;</button>
     <img id="lightbox-img" src="" alt="Italian mid-century home bar set in veneer leather chrome and glass 1960s">
+    <span id="lightbox-nr" class="lightbox-nr"></span>
     <button class="lightbox-next" aria-label="Volgende">&#10095;</button>
 </div>
 <script>
@@ -150,7 +147,13 @@
     // ook nadat een thumbnail is aangeklikt (die zet een absolute src op de grote foto).
     var urls = thumbs.length ? thumbs.map(function (t) { return t.src; }) : [main.src];
     var i = 0;
-    function show(n) { i = (n + urls.length) % urls.length; lbImg.src = urls[i]; }
+    var nrEl = document.getElementById('lightbox-nr');
+    var isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    function show(n) {
+        i = (n + urls.length) % urls.length;
+        lbImg.src = urls[i];
+        if (nrEl && isLocal) nrEl.textContent = 'foto ' + (i + 1) + ' / ' + urls.length;
+    }
     function open() {
         var p = urls.indexOf(main.src);
         show(p >= 0 ? p : 0);
@@ -178,6 +181,28 @@
 })();
 </script>
 
+<!-- Foto-nummers — alleen zichtbaar op de lokale preview (verborgen voor bezoekers) -->
+<script>
+(function () {
+    if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
+    var box = document.querySelector('.gallery-thumbs');
+    if (!box) return;
+    var thumbs = box.querySelectorAll('img');
+    thumbs.forEach(function (img, i) {
+        function place() {
+            var nr = document.createElement('span');
+            nr.className = 'thumb-nr';
+            nr.textContent = i + 1;
+            nr.style.left = (img.offsetLeft + 4) + 'px';
+            nr.style.top = (img.offsetTop + 4) + 'px';
+            box.appendChild(nr);
+        }
+        if (img.complete) place();
+        else img.addEventListener('load', place);
+    });
+})();
+</script>
+
 <!-- Schema.org -->
 <script type="application/ld+json">
 {
@@ -197,7 +222,7 @@
     "https://www.vintz.nl/foto/mid-century-italian-home-bar-set-leather-glass-1960s/09.jpg"
   ],
   "url": "https://www.vintz.nl/p/mid-century-italian-home-bar-set-leather-glass-1960s/",
-  "category": "Various",
+  "category": "Furniture",
   "itemCondition": "https://schema.org/UsedCondition",
   "brand": {
     "@type": "Brand",
@@ -233,8 +258,8 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Various",
-      "item": "https://www.vintz.nl/various/"
+      "name": "Furniture",
+      "item": "https://www.vintz.nl/furniture/"
     },
     {
       "@type": "ListItem",

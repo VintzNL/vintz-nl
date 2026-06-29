@@ -28,7 +28,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css?v=20260612a">
+    <link rel="stylesheet" href="/css/style.css?v=20260319f">
 
     <!-- GA4: niet geconfigureerd -->
 
@@ -95,7 +95,7 @@
         <div class="product-info">
             <h1>Josephine Hutten Crystal Bowl Set with Gold Accents</h1>
 
-            <p class="product-price">Sold</p>
+            <p class="product-price">Sold </p>
             <p class="product-ref">Ref: A-052</p>
 
             <div class="product-specs">
@@ -106,6 +106,8 @@
                     <dt>Materials</dt><dd>lead-free crystal, gold</dd>
                     <dt>Color</dt><dd>clear/gold</dd>
                     <dt>Condition</dt><dd>Good — all 11 pieces intact, no chips or cracks</dd>
+                    <dt>Height</dt><dd>6 cm</dd>
+                    <dt>Depth</dt><dd>21 cm</dd>
                 </dl>
             </div>
 
@@ -121,13 +123,7 @@
 <p>Whether deployed for desserts at a dinner party, displayed on a sideboard, or used to hold small objects on a dressing table, these bowls bring a quiet sense of occasion to everyday life. They are the kind of pieces that remind you: beautiful things deserve to be used, not just looked at.</p>
             </div>
 
-            <div class="product-dimensions">
-                <h3>Dimensions</h3>
-                <dl>
-                    <dt>Height</dt><dd>6 cm</dd>
-                    <dt>Depth</dt><dd>21 cm</dd>
-                </dl>
-            </div>
+            
         </div>
 
     </div>
@@ -139,6 +135,7 @@
     <button class="lightbox-close" aria-label="Sluiten">&times;</button>
     <button class="lightbox-prev" aria-label="Vorige">&#10094;</button>
     <img id="lightbox-img" src="" alt="Set of 11 Josephine Hutten crystal bowls with gold accents, 1960s Austria">
+    <span id="lightbox-nr" class="lightbox-nr"></span>
     <button class="lightbox-next" aria-label="Volgende">&#10095;</button>
 </div>
 <script>
@@ -152,7 +149,13 @@
     // ook nadat een thumbnail is aangeklikt (die zet een absolute src op de grote foto).
     var urls = thumbs.length ? thumbs.map(function (t) { return t.src; }) : [main.src];
     var i = 0;
-    function show(n) { i = (n + urls.length) % urls.length; lbImg.src = urls[i]; }
+    var nrEl = document.getElementById('lightbox-nr');
+    var isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    function show(n) {
+        i = (n + urls.length) % urls.length;
+        lbImg.src = urls[i];
+        if (nrEl && isLocal) nrEl.textContent = 'foto ' + (i + 1) + ' / ' + urls.length;
+    }
     function open() {
         var p = urls.indexOf(main.src);
         show(p >= 0 ? p : 0);
@@ -176,6 +179,28 @@
         if (e.key === 'Escape') close();
         else if (e.key === 'ArrowLeft') show(i - 1);
         else if (e.key === 'ArrowRight') show(i + 1);
+    });
+})();
+</script>
+
+<!-- Foto-nummers — alleen zichtbaar op de lokale preview (verborgen voor bezoekers) -->
+<script>
+(function () {
+    if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
+    var box = document.querySelector('.gallery-thumbs');
+    if (!box) return;
+    var thumbs = box.querySelectorAll('img');
+    thumbs.forEach(function (img, i) {
+        function place() {
+            var nr = document.createElement('span');
+            nr.className = 'thumb-nr';
+            nr.textContent = i + 1;
+            nr.style.left = (img.offsetLeft + 4) + 'px';
+            nr.style.top = (img.offsetTop + 4) + 'px';
+            box.appendChild(nr);
+        }
+        if (img.complete) place();
+        else img.addEventListener('load', place);
     });
 })();
 </script>

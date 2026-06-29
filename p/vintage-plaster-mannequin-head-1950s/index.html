@@ -28,7 +28,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css?v=20260612a">
+    <link rel="stylesheet" href="/css/style.css?v=20260319f">
 
     <!-- GA4: niet geconfigureerd -->
 
@@ -90,7 +90,7 @@
         <div class="product-info">
             <h1>Vintage Plaster Mannequin Head, 1950s</h1>
 
-            <p class="product-price">Sold</p>
+            <p class="product-price">Sold </p>
             <p class="product-ref">Ref: B-059</p>
 
             <div class="product-specs">
@@ -127,6 +127,7 @@
     <button class="lightbox-close" aria-label="Sluiten">&times;</button>
     <button class="lightbox-prev" aria-label="Vorige">&#10094;</button>
     <img id="lightbox-img" src="" alt="Vintage 1950s hand-painted plaster mannequin head with blue eyes and blonde hair from a German shop display">
+    <span id="lightbox-nr" class="lightbox-nr"></span>
     <button class="lightbox-next" aria-label="Volgende">&#10095;</button>
 </div>
 <script>
@@ -140,7 +141,13 @@
     // ook nadat een thumbnail is aangeklikt (die zet een absolute src op de grote foto).
     var urls = thumbs.length ? thumbs.map(function (t) { return t.src; }) : [main.src];
     var i = 0;
-    function show(n) { i = (n + urls.length) % urls.length; lbImg.src = urls[i]; }
+    var nrEl = document.getElementById('lightbox-nr');
+    var isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    function show(n) {
+        i = (n + urls.length) % urls.length;
+        lbImg.src = urls[i];
+        if (nrEl && isLocal) nrEl.textContent = 'foto ' + (i + 1) + ' / ' + urls.length;
+    }
     function open() {
         var p = urls.indexOf(main.src);
         show(p >= 0 ? p : 0);
@@ -164,6 +171,28 @@
         if (e.key === 'Escape') close();
         else if (e.key === 'ArrowLeft') show(i - 1);
         else if (e.key === 'ArrowRight') show(i + 1);
+    });
+})();
+</script>
+
+<!-- Foto-nummers — alleen zichtbaar op de lokale preview (verborgen voor bezoekers) -->
+<script>
+(function () {
+    if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
+    var box = document.querySelector('.gallery-thumbs');
+    if (!box) return;
+    var thumbs = box.querySelectorAll('img');
+    thumbs.forEach(function (img, i) {
+        function place() {
+            var nr = document.createElement('span');
+            nr.className = 'thumb-nr';
+            nr.textContent = i + 1;
+            nr.style.left = (img.offsetLeft + 4) + 'px';
+            nr.style.top = (img.offsetTop + 4) + 'px';
+            box.appendChild(nr);
+        }
+        if (img.complete) place();
+        else img.addEventListener('load', place);
     });
 })();
 </script>
