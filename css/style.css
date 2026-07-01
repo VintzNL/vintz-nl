@@ -127,14 +127,71 @@ ul {
 /* === Hero === */
 
 .hero {
-    padding: 80px var(--gap);
-    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 62vh;
+    padding: 80px calc(var(--gap) + 19px) 8px var(--gap);
+    text-align: right;
     background: var(--color-surface);
 }
 
+/* Hero background slideshow (pan + crossfade) */
+.hero-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+.hero-slide {
+    position: absolute;
+    inset: -4px; /* laat de foto iets buiten de rand doorlopen — voorkomt witte naad bij het zoomen */
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.05);
+    animation: heroCycle 30s linear infinite;
+    will-change: opacity, transform;
+    filter: saturate(1.15) contrast(1.03);
+    backface-visibility: hidden;
+}
+.hero-slide:nth-child(1) { animation-delay: 0s; }
+.hero-slide:nth-child(2) { animation-delay: 6s; }
+.hero-slide:nth-child(3) { animation-delay: 12s; }
+.hero-slide:nth-child(4) { animation-delay: 18s; }
+.hero-slide:nth-child(5) { animation-delay: 24s; }
+@keyframes heroCycle {
+    0%   { opacity: 0; transform: scale(1.05) translateX(0); }
+    4%   { opacity: 1; }
+    20%  { opacity: 1; transform: scale(1.16) translateX(-3%); }
+    24%  { opacity: 0; }
+    100% { opacity: 0; transform: scale(1.16) translateX(-3%); }
+}
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* Geen sluier — foto's volledig in originele kleur; leesbaarheid via tekstschaduw */
+    background: none;
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide { animation: none; opacity: 0; transform: none; }
+    .hero-slide:first-child { opacity: 1; }
+}
+
 .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0;
+    text-align: right;
+}
+.hero-content h1,
+.hero-content p {
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65), 0 0 10px rgba(0, 0, 0, 0.55), 0 2px 22px rgba(0, 0, 0, 0.5);
 }
 
 .hero h1 {
@@ -147,7 +204,7 @@ ul {
 
 .hero p {
     font-size: 1.1rem;
-    color: var(--color-text-light);
+    color: #ffffff;
     margin-bottom: 32px;
 }
 
@@ -886,6 +943,19 @@ ul {
 
     .hero h1 {
         font-size: 1.8rem;
+    }
+
+    /* Kleinere schermen: hero gecentreerd i.p.v. rechtsonder */
+    .hero {
+        min-height: 52vh;
+        padding: 56px var(--gap) 28px;
+        text-align: center;
+        align-items: center;
+    }
+    .hero-content {
+        margin: 0 auto;
+        max-width: 100%;
+        text-align: center;
     }
 
     .category-grid {
