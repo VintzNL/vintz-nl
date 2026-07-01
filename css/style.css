@@ -304,6 +304,7 @@ ul {
     aspect-ratio: 4 / 5;
     overflow: hidden;
     background: var(--color-surface);
+    border-radius: 8px;
 }
 
 .product-card-image img {
@@ -434,6 +435,7 @@ ul {
     aspect-ratio: 4 / 5;
     overflow: hidden;
     background: var(--color-surface);
+    border-radius: 8px;
 }
 
 .gallery-main img {
@@ -489,6 +491,7 @@ ul {
     cursor: pointer;
     opacity: 0.6;
     transition: opacity 0.2s;
+    border-radius: 6px;
 }
 
 .gallery-thumbs img:hover,
@@ -514,6 +517,7 @@ ul {
     max-height: 92vh;
     object-fit: contain;
     cursor: pointer;
+    border-radius: 8px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 .lightbox-close,
