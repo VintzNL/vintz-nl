@@ -1111,3 +1111,27 @@ ul {
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* === Etsy reviews badge === */
+.reviews-bar {
+    display: block;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+}
+.reviews-bar:hover { background: #efefec; }
+.reviews-bar strong { font-weight: 600; }
+.reviews-stars { color: #e0a100; letter-spacing: 1px; }
+.reviews-count { color: var(--color-text-light); }
+
+.product-reviews {
+    margin: -0.35rem 0 1.25rem;
+    font-size: 0.9rem;
+}
+.product-reviews a { color: var(--color-text-light); }
+.product-reviews a:hover { color: var(--color-text); }
+.product-reviews .reviews-stars { color: #e0a100; }
