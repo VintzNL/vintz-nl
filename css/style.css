@@ -11,7 +11,7 @@
 }
 
 :root {
-    --color-bg: #ffffff;
+    --color-bg: #e7f0e2;
     --color-text: #1a1a1a;
     --color-text-light: #666666;
     --color-border: #e0e0e0;
@@ -214,7 +214,7 @@ ul {
     display: inline-block;
     padding: 12px 32px;
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: #ffffff;
     font-size: 0.9rem;
     letter-spacing: 0.05em;
     text-decoration: none;
@@ -230,7 +230,7 @@ ul {
     display: inline-block;
     padding: 14px 32px;
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: #ffffff;
     font-size: 0.95rem;
     letter-spacing: 0.03em;
     text-decoration: none;
@@ -338,7 +338,7 @@ ul {
     top: 12px;
     left: 12px;
     background: var(--color-text);
-    color: var(--color-bg);
+    color: #ffffff;
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
