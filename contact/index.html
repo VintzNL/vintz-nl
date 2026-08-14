@@ -90,10 +90,22 @@
             <!-- Direct contact -->
             <div class="contact-block">
                 <h2>Get in touch</h2>
-                <p>If you have any questions or comments, please contact us via email or phone.</p>
+                <p>Questions about a piece, shipping or availability? Send us a message and we will reply as soon as possible.</p>
+                <form class="contact-form" action="https://formspree.io/f/myegpbaa" method="POST">
+                    <p class="contact-form-item" id="contact-form-item" hidden>Regarding: <span id="contact-form-item-naam"></span></p>
+                    <label for="contact-naam">Name</label>
+                    <input type="text" id="contact-naam" name="name" autocomplete="name" required>
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" name="email" autocomplete="email" required>
+                    <label for="contact-bericht">Message</label>
+                    <textarea id="contact-bericht" name="message" rows="7" required></textarea>
+                    <input type="hidden" name="_subject" value="Message via vintz.nl">
+                    <input type="hidden" name="item" id="contact-item" value="">
+                    <input type="text" name="_gotcha" class="contact-spamrem" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <button type="submit" class="btn-inquiry">Send message</button>
+                </form>
                 <div class="contact-details">
-                    <p><a href="mailto:info@vintz.nl">info@vintz.nl</a></p>
-                    <p><a href="tel:+31642560076">+31 6 425 600 76</a></p>
+                    <p>Or call <a href="tel:+31642560076">+31 6 425 600 76</a></p>
                 </div>
             </div>
 
@@ -151,7 +163,7 @@
             </div>
             <div class="footer-col">
                 <h3>Contact</h3>
-                <p><a href="mailto:info@vintz.nl">info@vintz.nl</a></p>
+                <p><a href="/contact/">Contact us</a></p>
                 <p><a href="tel:+31642560076">+31 6 425 600 76</a></p>
                 <p>Grubbenvorst, the Netherlands</p>
                 <p><a href="https://www.instagram.com/vintz.nl/" target="_blank" rel="noopener">Instagram @vintz.nl</a></p>
@@ -171,6 +183,17 @@
     </script>
 
     
+    <script>
+    (function () {
+        var naam = new URLSearchParams(window.location.search).get('item');
+        if (!naam) { return; }
+        var veld = document.getElementById('contact-item');
+        var regel = document.getElementById('contact-form-item');
+        var toon = document.getElementById('contact-form-item-naam');
+        if (veld) { veld.value = naam; }
+        if (regel && toon) { toon.textContent = naam; regel.hidden = false; }
+    })();
+    </script>
 
 </body>
 </html>

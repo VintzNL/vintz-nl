@@ -1209,3 +1209,72 @@ ul {
 .product-reviews a { color: var(--color-text-light); }
 .product-reviews a:hover { color: var(--color-text); }
 .product-reviews .reviews-stars { color: #e0a100; }
+
+/* === Contactformulier (14 aug 2026) === */
+
+.contact-form {
+    margin-top: 24px;
+    max-width: 480px;
+}
+
+.contact-form label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    transition: border-color 0.2s;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.contact-form .btn-inquiry {
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    width: 100%;
+}
+
+.contact-form-item {
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+}
+
+/* De spamrem: onzichtbaar voor een bezoeker, robots vullen hem wel in. */
+.contact-spamrem {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    .contact-form { max-width: 100%; }
+}
