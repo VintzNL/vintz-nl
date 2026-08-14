@@ -1287,3 +1287,8 @@ ul {
 .contact-dank p {
     color: var(--color-text);
 }
+
+.contact-dank-logo {
+    display: block;
+    margin-bottom: 16px;
+}
