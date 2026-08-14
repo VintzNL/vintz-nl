@@ -102,8 +102,13 @@
                     <input type="hidden" name="_subject" value="Message via vintz.nl">
                     <input type="hidden" name="item" id="contact-item" value="">
                     <input type="text" name="_gotcha" class="contact-spamrem" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <input type="hidden" name="_language" value="en">
                     <button type="submit" class="btn-inquiry">Send message</button>
                 </form>
+                <div class="contact-dank" id="contact-dank" hidden>
+                    <p><strong>Thank you! Your message has been sent.</strong></p>
+                    <p>We have received it in good order and will get back to you as soon as possible.</p>
+                </div>
                 <div class="contact-details">
                     <p>Or call <a href="tel:+31642560076">+31 6 425 600 76</a></p>
                 </div>
@@ -186,12 +191,36 @@
     <script>
     (function () {
         var naam = new URLSearchParams(window.location.search).get('item');
-        if (!naam) { return; }
-        var veld = document.getElementById('contact-item');
-        var regel = document.getElementById('contact-form-item');
-        var toon = document.getElementById('contact-form-item-naam');
-        if (veld) { veld.value = naam; }
-        if (regel && toon) { toon.textContent = naam; regel.hidden = false; }
+        if (naam) {
+            var veld = document.getElementById('contact-item');
+            var regel = document.getElementById('contact-form-item');
+            var toon = document.getElementById('contact-form-item-naam');
+            if (veld) { veld.value = naam; }
+            if (regel && toon) { toon.textContent = naam; regel.hidden = false; }
+        }
+
+        var formulier = document.querySelector('.contact-form');
+        var dank = document.getElementById('contact-dank');
+        if (!formulier || !dank || !window.fetch) { return; }
+        var onderweg = false;
+        formulier.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (onderweg) { return; }
+            onderweg = true;
+            var knop = formulier.querySelector('button[type="submit"]');
+            if (knop) { knop.disabled = true; knop.textContent = 'Sending\u2026'; }
+            fetch(formulier.action, {
+                method: 'POST',
+                body: new FormData(formulier),
+                headers: { 'Accept': 'application/json' }
+            }).then(function (antwoord) {
+                if (!antwoord.ok) { throw new Error('versturen mislukt'); }
+                formulier.hidden = true;
+                dank.hidden = false;
+            }).catch(function () {
+                formulier.submit();
+            });
+        });
     })();
     </script>
 

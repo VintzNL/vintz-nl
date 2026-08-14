@@ -1278,3 +1278,12 @@ ul {
 @media (max-width: 768px) {
     .contact-form { max-width: 100%; }
 }
+
+.contact-dank {
+    margin-top: 24px;
+    max-width: 480px;
+}
+
+.contact-dank p {
+    color: var(--color-text);
+}
